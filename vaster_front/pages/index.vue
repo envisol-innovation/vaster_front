@@ -63,7 +63,7 @@ function goFunc() {
     const csv_string: string = reader.result as string;
     console.log("brrr", csv_string);
     const parser = PaPa.parse(csv_string, { delimiter: ";" });
-    data = PaPa.parse(csv_string, { delimiter: ";", header: true}).data;
+    data = PaPa.parse(csv_string, { delimiter: ";", header: true }).data;
     console.log(parser.data[0]);
     colonnes.value = parser.data[0] as [string];
   }
@@ -74,7 +74,7 @@ async function post_ACP() {
   console.log("ACP !!!", data[0]);
   let dictionary = data.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values(selected_cols.value).includes(k))) });
   console.log(dictionary);
-  const {res} = await useFetch('http://localhost:4200', {
+  const { res } = await useFetch('http://localhost:4200', {
     method: 'POST',
     body: dictionary,
   });

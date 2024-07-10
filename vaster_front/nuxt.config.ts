@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify'],
   },
+
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
@@ -13,6 +14,7 @@ export default defineNuxtConfig({
     },
     //...
   ],
+
   vite: {
     vue: {
       customElement: true,
@@ -21,6 +23,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   runtimeConfig: {
       // The private keys which are only available server-side
       apiSecret: '123',
@@ -28,5 +31,7 @@ export default defineNuxtConfig({
       public: {
         apiBase: '/api'
       }
-    }
+    },
+
+  compatibilityDate: '2024-07-04'
 })
