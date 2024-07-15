@@ -1,6 +1,5 @@
 <template>
-  <NuxtLayout>
-    <v-app>
+
       <div>
         <VFileInput v-model="files" label="Selectionner fichier"></VFileInput>
       </div>
@@ -26,9 +25,6 @@
         </template>
       </v-select>
       <v-btn color="success" @click="post_ACP">ACP!</v-btn>
-
-    </v-app>
-  </NuxtLayout>
 </template>
 
 <script setup lang="ts">

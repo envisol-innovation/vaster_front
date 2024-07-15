@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar :elevation="2">
-      <v-app-bar-title>Sondages</v-app-bar-title>
+      <v-app-bar-title>Envisol</v-app-bar-title>
     </v-app-bar>
 
     <v-navigation-drawer>

@@ -121,20 +121,50 @@ function reinitialise() {
 function egal() {
 
   let taille= 0;
-  let chaine= [""];
-  let chaineF = [""];
+  let j = 0;
+  let chaine= [];
+  let chaineF = [];
+  let operateur = []
+  let nb1 = "";
+  let nb2 = "";
+  let total = 0;
+  let LindiceMul = []];
 
-  taille = myText.value.length;
+  taille = myText.value.length+1;
   console.log (taille)
 
   for (let i = 0 ; i < taille; i++) {
+    console.log(Number(myText.value[i]))
     if (Number.isNaN(Number(myText.value[i]))){
-      chaine = myText.value.split(myText.value[i])
-      chaineF.push(myText.value[i-1])
-      console.log (chaine)
-      console.log (chaineF)
+      chaineF.push(nb1)
+      operateur.push(myText.value[i])
+      nb1 = ""
+    }
+    else{
+      nb1 += myText.value[i]
+      
     }
   }
 
+  for (let i = 0; i < operateur.length; i++) {
+    if (operateur[i] == "*") {
+      LindiceMul.push(i)
+    }
+
+  }
+
+  if (LindiceMul){
+    for (let i = 0; i < LindiceMul.length; i++) {
+        if (operateur[i] == "*") {
+          LindiceMul.push(i)
+        }
+
+      }
+
+  }
+
+  console.log(operateur)
+  console.log (chaineF)
 }
+
 </script>
