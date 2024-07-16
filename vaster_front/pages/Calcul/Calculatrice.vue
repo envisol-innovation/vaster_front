@@ -1,5 +1,5 @@
 <template>
-  <h1> Calculatrice non fonctionnelle </h1>
+  <h1> Calculatrice légèrement fonctionnelle </h1>
   <div>
     <row>
       <v-btn color="succes" v-on:click="increment" width="50">+</v-btn>
@@ -122,23 +122,35 @@ function egal() {
 
   let taille= 0;
   let j = 0;
-  let chaine= [];
+  let operateur2= [];
   let chaineF = [];
   let operateur = []
   let nb1 = "";
   let nb2 = "";
-  let total = 0;
-  let LindiceMul = []];
+  let compteur =  0;
+  let LindiceMul = [];
+  let LindiceAdd = [];
+  let LindiceSous = [];
+  let Valtemp = 0;
 
-  taille = myText.value.length+1;
-  console.log (taille)
+  taille = myText.value.length;
 
-  for (let i = 0 ; i < taille; i++) {
-    console.log(Number(myText.value[i]))
+  for (let i = 0 ; i < taille+1; i++) { // création des listes qui vont accueillir les indices des opérateurs dans la chaine 
     if (Number.isNaN(Number(myText.value[i]))){
       chaineF.push(nb1)
       operateur.push(myText.value[i])
+
+      if (myText.value[i] == "+"){
+        LindiceAdd.push(compteur)
+      }
+      else if (myText.value[i] == "-"){
+        LindiceSous.push(compteur)
+      }
+      else if (myText.value[i] == "*"){
+        LindiceMul.push(compteur)
+      }
       nb1 = ""
+      compteur += 1
     }
     else{
       nb1 += myText.value[i]
@@ -146,25 +158,35 @@ function egal() {
     }
   }
 
-  for (let i = 0; i < operateur.length; i++) {
-    if (operateur[i] == "*") {
-      LindiceMul.push(i)
+  console.log(chaineF) // Calcul des opérations prioritaires (multiplication ici)
+  for (let i = 0; i<LindiceMul.length; i++){
+    Valtemp = Number(chaineF[LindiceMul[i]]) * Number(chaineF[LindiceMul[i]+1])
+    chaineF[LindiceMul[i]] = Valtemp
+    chaineF.splice(Number(LindiceMul[i]+1),1)
+    for (let i = 0; i<LindiceMul.length; i++){
+      LindiceMul[i] -=1
     }
 
   }
 
-  if (LindiceMul){
-    for (let i = 0; i < LindiceMul.length; i++) {
-        if (operateur[i] == "*") {
-          LindiceMul.push(i)
-        }
-
-      }
-
+  for (let i = 0; i<operateur.length; i++){ //suppression des * dans la liste des opérateurs
+    if (operateur[i] != '*' && operateur[i] != undefined){
+      operateur2.push(operateur[i])
+    }
   }
 
-  console.log(operateur)
-  console.log (chaineF)
+
+  for (let i = 0; i<operateur2.length; i++){
+    if (operateur2[i] == "+"){
+        chaineF[i+1] = Number(chaineF[i]) + Number(chaineF[i+1])
+      }
+    else if (operateur2[i] == "-"){
+      chaineF[i+1] = Number(chaineF[i]) - Number(chaineF[i+1])
+      }
+    }
+  chaineF.splice(0,chaineF.length-1)
+  console.log(chaineF)
+  myText.value = String(chaineF)
 }
 
 </script>
