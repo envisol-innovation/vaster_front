@@ -38,7 +38,7 @@ const runtimeConfig = useRuntimeConfig()
 console.log(runtimeConfig.apiSecret)
 const files = ref([]);
 let colonnes = ref([""]);
-let data: any[] = [];
+let data_csv: any[] = [];
 var filename = "";
 let selected_cols = ref([""]);
 watch(files, goFunc);
@@ -63,7 +63,7 @@ function goFunc() {
     const csv_string: string = reader.result as string;
     console.log("brrr", csv_string);
     const parser = PaPa.parse(csv_string, { delimiter: ";" });
-    data = PaPa.parse(csv_string, { delimiter: ";", header: true}).data;
+    data_csv = PaPa.parse(csv_string, { delimiter: ";", header: true}).data;
     console.log(parser.data[0]);
     colonnes.value = parser.data[0] as [string];
   }
@@ -71,14 +71,14 @@ function goFunc() {
 
 
 async function post_ACP() {
-  console.log("ACP !!!", data[0]);
-  let dictionary = data.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values(selected_cols.value).includes(k))) });
+  console.log("ACP !!!", data_csv[0]);
+  let dictionary = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values(selected_cols.value).includes(k))) });
   console.log(dictionary);
-  const {res} = await useFetch('http://localhost:4200', {
+  const { data, status, error, refresh, clear }  = await useFetch('http://localhost:4200', {
     method: 'POST',
     body: dictionary,
   });
-  console.log(res)
+  console.log(data)
 }
 
 </script>
