@@ -1,6 +1,5 @@
 <template>
-  <NuxtLayout>
-    <v-app>
+
       <div>
         <VFileInput v-model="files" label="Selectionner fichier"></VFileInput>
       </div>
@@ -26,9 +25,6 @@
         </template>
       </v-select>
       <v-btn color="success" @click="post_ACP">ACP!</v-btn>
-
-    </v-app>
-  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -63,7 +59,7 @@ function goFunc() {
     const csv_string: string = reader.result as string;
     console.log("brrr", csv_string);
     const parser = PaPa.parse(csv_string, { delimiter: ";" });
-    data_csv = PaPa.parse(csv_string, { delimiter: ";", header: true}).data;
+    data = PaPa.parse(csv_string, { delimiter: ";", header: true }).data;
     console.log(parser.data[0]);
     colonnes.value = parser.data[0] as [string];
   }
@@ -74,7 +70,7 @@ async function post_ACP() {
   console.log("ACP !!!", data_csv[0]);
   let dictionary = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values(selected_cols.value).includes(k))) });
   console.log(dictionary);
-  const { data, status, error, refresh, clear }  = await useFetch('http://localhost:4200', {
+  const { res } = await useFetch('http://localhost:4200', {
     method: 'POST',
     body: dictionary,
   });
